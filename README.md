@@ -1,30 +1,39 @@
-### Fedora Toolbox UE4
+### Environment for UE4 editor in fedora toolbox
 
-Toolbox dev environment for UE4 https://github.com/containers/toolbox
+Upstream https://github.com/containers/toolbox
 
-#### Get Github invite to EpicGames private repos
+Add packages to stock toolbox needed to launch the Unreal Engine 4 editor.
+
+Start toolbox using image
+```
+toolbox create -c steam -i docker.io/randomcoww/fedora-toolbox-ue4:latest
+```
+
+#### Build and launch editor
+
+Get Github invite to EpicGames private repos
 
 https://docs.unrealengine.com/en-US/Platforms/Linux/BeginnerLinuxDeveloper/SettingUpAnUnrealWorkflow/index.html
 
-#### Build locally
 Generate a Github personal token with `repo` access
 
+Check out project somewhere in home directory
 ```
-podman build \
-  --security-opt label=disable \
-  --build-arg BRANCH=release \
-  --build-arg GITHUB_TOKEN=<personal_token> \
-   -t f33-ue4:release .
-```
-
-#### Create container
-```
-toolbox create -c f33-ue4 -i f33-ue4:release
-toolbox enter f33-ue4
+GITHUB_TOKEN=<token>
+git clone --depth=1 -b release \
+    https://${GITHUB_TOKEN}:x-oauth-basic@github.com/EpicGames/UnrealEngine.git 
 ```
 
-#### Launch
+Build
 ```
-cd Engine/Binaries/Linux
-./UE4Editor
+cd UnrealEngine \
+  && ./Setup.sh \
+  && ./Engine/Build/BatchFiles/Linux/Build.sh UE4Editor Linux Development -WaitMutex \
+  && ./Engine/Build/BatchFiles/Linux/Build.sh ShaderCompileWorker Linux Development -WaitMutex \
+  && ./Engine/Build/BatchFiles/Linux/Build.sh UnrealPak Linux Development -WaitMutex
+```
+
+Launch editor
+```
+./Engine/Binaries/Linux/UE4Editor
 ```
