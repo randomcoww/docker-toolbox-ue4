@@ -7,6 +7,7 @@ Add packages to stock toolbox needed to launch the Unreal Engine 4 editor.
 Start toolbox using image
 ```
 toolbox create -c ue4 -i docker.io/randomcoww/fedora-toolbox-ue4:latest
+toolbox enter ue4
 ```
 
 #### Build and launch editor
