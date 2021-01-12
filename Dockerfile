@@ -7,4 +7,5 @@ RUN set -x \
     xdg-user-dirs \
     pulseaudio \
     libXrandr \
-    libXcursor
+    libXcursor \
+  && dnf clean all
