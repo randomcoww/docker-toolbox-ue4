@@ -1,4 +1,5 @@
 FROM registry.fedoraproject.org/f33/fedora-toolbox:33
+COPY codium.repo /etc/yum.repos.d/
 
 RUN set -x \
   \
@@ -8,4 +9,7 @@ RUN set -x \
     pulseaudio \
     libXrandr \
     libXcursor \
-  && dnf clean all
+    codium \
+  && dnf clean all \
+  # UE4 finds vscode at /usr/bin/code
+  && ln -s /usr/bin/codium /usr/bin/code
