@@ -11,6 +11,5 @@ RUN set -x \
     libXrandr \
     libXcursor \
     codium \
-  && dnf clean all \
   # UE4 finds vscode at /usr/bin/code
   && ln -s /usr/bin/codium /usr/bin/code
